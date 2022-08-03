@@ -1,26 +1,22 @@
 #include <stdio.h>
 #include <dirent.h>
-
-int main(void)
+int main()
 {
-	struct dirent *de; // Pointer for directory entry
-
-
-	// opendir() returns a pointer of DIR type.
-	DIR *dr = opendir(".");
-	if (dr == NULL) // opendir returns NULL if couldn't open directory
-	{
-		printf("Could not open current directory" );
-		return 0;
-	}
-
-	// Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
-	// for readdir()
-	printf("Files in the directory are \n");
-	while ((de = readdir(dr)) != NULL)
-			printf("%s\n", de->d_name);
-
-	closedir(dr);	
-	return 0;
+    struct dirent *de;
+    char filepath [100];
+    printf("Enter the path of the directory:\n ");
+    scanf("%s",filepath);
+    DIR *dr=opendir(filepath);
+    if(dr==NULL)
+    {
+        printf("Could not open the directory");
+        return 0;
+    }
+    printf("Files in the directory are:\n");
+    while((de=readdir(dr))!=NULL)
+    {
+        printf("\n%s\n",de->d_name);
+    }
+    closedir(dr);
+    return 0;
 }
-
